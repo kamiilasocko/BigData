@@ -178,12 +178,43 @@ println("after: "+df_NotNull.count)
 
 // COMMAND ----------
 
+// MAGIC %md
+// MAGIC Średnia po wierszach dla votes_1-votes_10
+
+// COMMAND ----------
+
 //Dodaj nowe kolumny i policz mean i median dla wartości głosów (1 d 10)
 val votes = df_NotNull.columns.toList.slice(5,15)
 val votes_column = df_NotNull.select(votes.map(c => col(c)): _*)
 //display(votes_column)
 val mean = df_NotNull.withColumn("mean 1 to 10", votes_column.columns.map(x => col(x)).reduce((x1, x2) => x1 + x2) / 10)
 display(mean.select("mean_vote","mean 1 to 10","weighted_average_vote"))
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC Średnia po kolumnach votes_1-votes_10
+
+// COMMAND ----------
+
+val names = votes_column.columns.toList
+for(i<-names){
+  println(i)
+  df_NotNull.agg(avg(i)).show()
+}
+
+// COMMAND ----------
+
+// MAGIC %md
+// MAGIC Mediana dla każdej z kolumn/po kolumnach votes_1-votes_10
+
+// COMMAND ----------
+
+val names = votes_column.columns.toList
+for(i<-names){
+  println(i)
+  df_NotNull.agg(expr(s"approx_percentile($i, array(0.5))").as("approx_50_percentile")).show()
+}
 
 // COMMAND ----------
 
