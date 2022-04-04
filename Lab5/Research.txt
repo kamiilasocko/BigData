@@ -1,0 +1,39 @@
+DP-100 Microsoft Certified: Azure Data Scientist Associate
+1. Manage Azure resources for machine learning
+- Azure Machine Learinig 
+https://docs.microsoft.com/pl-pl/azure/machine-learning/overview-what-is-azure-machine-learning
+
+- Azure Databricks
+https://docs.microsoft.com/pl-pl/azure/databricks/scenarios/what-is-azure-databricks
+
+- Azure Key Vault
+https://docs.microsoft.com/pl-pl/azure/key-vault/general/overview
+
+2. Run experiments and train models 
+- MLflow
+https://docs.microsoft.com/pl-pl/azure/machine-learning/how-to-use-mlflow
+
+3. Deploy and operationalize machine learning solutions
+- Azure DevOps
+https://docs.microsoft.com/pl-pl/azure/devops/user-guide/what-is-azure-devops?view=azure-devops
+
+4. Implement responsible machine learning
+
+DP-203 Data Engineering on Microsoft Azure
+1. Design and Implement Data Storage
+- Azure Blob Storage
+https://docs.microsoft.com/pl-pl/azure/storage/blobs/storage-blobs-introduction
+
+- Azure Synapse Analytics
+https://docs.microsoft.com/pl-pl/azure/synapse-analytics/overview-what-is
+
+2. Design and Develop Data Processing
+- Apache Spark
+- Transact-SQL
+- Data Factory
+- Azure Event Hubs
+https://docs.microsoft.com/pl-pl/azure/event-hubs/event-hubs-about
+3. Design and Implement Data Security
+- Azure RBAC
+4. Monitor and Optimize Data Storage and Data Processing
+- Azure Monitor
