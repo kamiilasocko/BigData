@@ -1,4 +1,11 @@
+AZURE
+
+===============================================================================================
+
 DP-100 Microsoft Certified: Azure Data Scientist Associate
+
+===============================================================================================
+
 1. Manage Azure resources for machine learning
 - Azure Machine Learinig 
 https://docs.microsoft.com/pl-pl/azure/machine-learning/overview-what-is-azure-machine-learning
@@ -20,6 +27,9 @@ https://docs.microsoft.com/pl-pl/azure/devops/user-guide/what-is-azure-devops?vi
 4. Implement responsible machine learning
 
 DP-203 Data Engineering on Microsoft Azure
+
+===============================================================================================
+
 1. Design and Implement Data Storage
 - Azure Blob Storage
 https://docs.microsoft.com/pl-pl/azure/storage/blobs/storage-blobs-introduction
@@ -37,3 +47,30 @@ https://docs.microsoft.com/pl-pl/azure/event-hubs/event-hubs-about
 - Azure RBAC
 4. Monitor and Optimize Data Storage and Data Processing
 - Azure Monitor
+
+===============================================================================================
+
+AWS
+
+===============================================================================================
+
+- AWS Data Pipeline - a web service that you can use to automate the movement and
+transformation of data
+https://docs.aws.amazon.com/data-pipeline/
+- Amazon EC2 - create virtual machines
+https://docs.aws.amazon.com/ec2/
+- Amazon Simple Storage Service (S3) - storage class for data archiving and long-term backup
+https://docs.aws.amazon.com/s3/
+- Amazon CloudFront - a web service that speeds up distribution of your static and dynamic web
+content, such as .html, .css, .js, and image files, to your users.
+https://docs.aws.amazon.com/AmazonCloudFront/
+- Amazon Athena - an interactive query service that makes it easy to analyze data in Amazon 
+S3 using standard SQL. 
+https://docs.aws.amazon.com/athena
+- AWS Glue - serverless data-preparation service for extract, transform, and load (ETL) 
+operations. It makes it easy for data engineers, data analysts, data scientists, and ETL 
+developers to extract, clean, enrich, normalize, and load data.
+https://docs.aws.amazon.com/glue
+- Amazon SageMaker -  quickly build and train machine learning models, and then deploy them 
+into a production-ready hosted environment
+https://docs.aws.amazon.com/sagemaker/
