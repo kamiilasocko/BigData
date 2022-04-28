@@ -110,4 +110,10 @@ display(df1)#Query returned no results
 
 # COMMAND ----------
 
+# MAGIC %scala
+# MAGIC import Lab7._
 
+# COMMAND ----------
+
+# MAGIC %scala 
+# MAGIC main(Array("pp","jkj"))
