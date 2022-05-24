@@ -41,37 +41,36 @@ display(df)
 
 // COMMAND ----------
 
-df.write.format("delta").partitionBy("Country").mode("overwrite").option("overwriteSchema", "true").save("/tmp/delta/online-retail-dataset")
+val df2=df.repartition(30)
 
 // COMMAND ----------
 
-display(dbutils.fs.ls("/tmp/delta/online-retail-dataset/"))
+df2.write.format("delta").partitionBy("Country").mode("overwrite").save("/tmp/delta/online_retail_dataset")
 
 // COMMAND ----------
 
-spark.catalog.clearCache()
-val p = "dbfs:/tmp/delta/online-retail-dataset"
-val df = spark.read
-  .format("delta").load(p).repartition(800)
-display(df)
+display(dbutils.fs.ls("/tmp/delta/online_retail_dataset/"))
 
 // COMMAND ----------
 
-df.rdd.getNumPartitions//800
-
-// COMMAND ----------
-
-spark.sql("DROP TABLE IF EXISTS deltaRetailData")
+spark.sql("DROP TABLE IF EXISTS online_retail_dataset")
 
 spark.sql(s"""
-  CREATE TABLE deltaRetailData
+  CREATE TABLE online_retail_dataset
   USING Delta
-  LOCATION "dbfs:/tmp/delta/online-retail-dataset"
+  LOCATION "dbfs:/tmp/delta/online_retail_dataset"
 """)
 
 // COMMAND ----------
 
 spark.sql("show tables from default").show()
+
+// COMMAND ----------
+
+val p = "dbfs:/tmp/delta/online_retail_dataset"
+val dfDelta = spark.read
+  .format("delta").load(p)
+dfDelta.rdd.getNumPartitions
 
 // COMMAND ----------
 
@@ -90,7 +89,7 @@ spark.sql("show tables from default").show()
 
 // COMMAND ----------
 
-display(spark.sql("select * from deltaRetailData where StockCode = '22301'"))
+display(spark.sql("select * from online_retail_dataset where StockCode = '22301'"))
 
 // COMMAND ----------
 
@@ -102,7 +101,7 @@ def timeIt[T](op: => T): Float = {
  (end - start) / 1000.toFloat
 }
 
-val sqlZorderQuery = timeIt(spark.sql("select * from deltaRetailData where StockCode = '22301'").collect())//ok. 17 s
+val sqlZorderQuery = timeIt(spark.sql("select * from online_retail_dataset where StockCode = '22301'").collect())//ok. 66 sek
 
 // COMMAND ----------
 
@@ -119,7 +118,7 @@ val sqlZorderQuery = timeIt(spark.sql("select * from deltaRetailData where Stock
 
 // MAGIC %sql
 // MAGIC -- wypelnij
-// MAGIC OPTIMIZE deltaRetailData
+// MAGIC OPTIMIZE online_retail_dataset
 // MAGIC ZORDER by (StockCode)
 
 // COMMAND ----------
@@ -130,7 +129,7 @@ val sqlZorderQuery = timeIt(spark.sql("select * from deltaRetailData where Stock
 // COMMAND ----------
 
 // TODO
-val poZorderQuery = timeIt(spark.sql("select * from deltaRetailData where StockCode = '22301'").collect())//ok. 4 s
+val poZorderQuery = timeIt(spark.sql("select * from online_retail_dataset where StockCode = '22301'").collect())//ok. 4 s
 
 // COMMAND ----------
 
@@ -142,7 +141,7 @@ val poZorderQuery = timeIt(spark.sql("select * from deltaRetailData where StockC
 // COMMAND ----------
 
 // TODO
-val plikiPrzed = dbutils.fs.ls("dbfs:/tmp/delta/online-retail-dataset/Country=Sweden").length//9 plikow
+val plikiPrzed = dbutils.fs.ls("dbfs:/tmp/delta/online_retail_dataset/Country=Sweden").length//31 plikow
 
 // COMMAND ----------
 
@@ -152,8 +151,8 @@ val plikiPrzed = dbutils.fs.ls("dbfs:/tmp/delta/online-retail-dataset/Country=Sw
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC 
-// MAGIC VACUUM deltaRetailData RETAIN 168 HOURS;
+// MAGIC set spark.databricks.delta.retentionDurationCheck.enabled = false;
+// MAGIC VACUUM online_retail_dataset RETAIN 0 HOURS;
 
 // COMMAND ----------
 
@@ -163,7 +162,7 @@ val plikiPrzed = dbutils.fs.ls("dbfs:/tmp/delta/online-retail-dataset/Country=Sw
 // COMMAND ----------
 
 // TODO
-val plikiPo = dbutils.fs.ls("dbfs:/tmp/delta/online-retail-dataset/Country=Sweden").length//tez 9 plikow 
+val plikiPo = dbutils.fs.ls("dbfs:/tmp/delta/online_retail_dataset/Country=Sweden").length//1 plik
 
 // COMMAND ----------
 
@@ -175,4 +174,4 @@ val plikiPo = dbutils.fs.ls("dbfs:/tmp/delta/online-retail-dataset/Country=Swede
 // COMMAND ----------
 
 // MAGIC %sql
-// MAGIC describe history deltaRetailData
+// MAGIC describe history online_retail_dataset
